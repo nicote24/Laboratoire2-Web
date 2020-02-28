@@ -1,0 +1,245 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <title>Inventaire</title>
+</head>
+
+<body>
+<script type="text/x-template" id="WrapList">
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content ">
+
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+                        <div class="row">
+
+                            <div v-for="item in $root.produits" class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="product-thumbnail">
+                                        <div class="product-img-head">
+                                            <div class="product-img">
+                                                <img href="" v-bind:src="item.urlImage" alt="" class="img-fluid" height="250" width="228"></div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="product-content-head">
+                                                <h3 class="product-title">{{item.nom}}</h3>
+                                                <div class="product-price">{{item.prix}} $</div>
+                                            </div>
+                                            <div class="product-btn">
+                                                <div href="#"  v-on:click="$root.GotoModif(item.cle)" class="btn btn-primary">Modifier</div>
+                                                <div href="#" v-on:click="$root.GotoConsulter(item.cle)"  class="btn btn-outline-light">Détails</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    </div>
+
+
+</script>
+<div id="app" >
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="#" onclick="goHome()">Inventaire</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                <input class="form-control" type="text" placeholder="Search..">
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown notification">
+                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" onclick="goAjouter()"><i class="fas fa-plus-circle"></i> </a>
+                            <router-link to="/produit/ajout">Ajouter</router-link>
+                            <router-link to="/">Acceuil</router-link>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <router-view></router-view>
+
+
+
+        <script type="text/x-template" id="WrapAjout">
+            <div class="dashboard-wrapper">
+                <div class="dashboard-ecommerce">
+                    <div class="container-fluid dashboard-content ">
+                        <div class="row">
+                            <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                                        <div class="product-slider">
+                                            <img class="d-block"  width="285" height="313" src="assets/images/eco-slider-img-1.png" alt="First slide" id="imgA">
+                                            <input href="#" placeholder="Entrez une URL" content="choisir une image" type="url" class="btn btn-primary btn-block btn-lg" onchange="modifImage()" id="imgT">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
+                                        <div class="product-details">
+                                            <div class="border-bottom pb-3 mb-3">
+                                                <h2 class="mb-3"><input type="text" value="Produit #1" id="ajoutNom"></input></h2>
+                                                <h3 class="mb-0 text-primary">$<input type="text" value="49.00" id="ajoutPrix"></h3>
+                                            </div>
+                                            <div class="product-size border-bottom">
+                                                <h4>Fournisseur</h4>
+                                                <input type="text" value="ACME Inc." id="ajoutFournisseur">
+                                                <div class="product-qty">
+                                                    <h4>Quantité</h4>
+                                                    <div class="quantity">
+                                                        <input type="number" value="1" id="ajoutQauntite">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-description">
+                                                <h4 class="mb-1">Description</h4>
+                                                <textarea rows="4" cols="50" id="ajoutDescription">Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</textarea>
+                                                <a href="#" class="btn btn-primary btn-block btn-lg" onclick="ajouterProduit()">Sauvegarder</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end wrapper  -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script type="text/x-template" id="WrapProduit">
+            <div class="dashboard-wrapper">
+                <div class="dashboard-ecommerce">
+                    <div class="container-fluid dashboard-content ">
+                        <div class="row">
+                            <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                                        <div class="product-slider">
+                                            <img class="d-block" src="assets/images/eco-slider-img-1.png" width="285" height="313" id="imgW" alt="First slide">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
+                                        <div class="product-details">
+                                            <div class="border-bottom pb-3 mb-3">
+                                                <h2 class="mb-3" id="nomProduit">Produit #1</h2>
+                                                <h3 class="mb-0 text-primary" id="prixProduit">$49.00</h3>
+                                            </div>
+                                            <div class="product-size border-bottom" >
+                                                <h4>Fournisseur</h4>
+                                                <div id="fournisseurProduit">
+                                                ACME Inc.
+                                                </div>
+                                                <div class="product-qty">
+                                                    <h4>Quantité</h4>
+                                                    <div class="quantity" id="qteProduit">
+                                                        1
+                                                    </div>
+                                                    <input type="hidden" id="ajoutId" value="">
+                                                </div>
+                                            </div>
+                                            <div class="product-description">
+                                                <h4 class="mb-1" >Description</h4>
+                                                <p id="descProduit">Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+                                                <div href="#" onclick="GoToModifFromCons()" class="btn btn-primary btn-block btn-lg">Modifier</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end wrapper  -->
+                        <!-- ============================================================== -->
+                    </div>
+
+                </div>
+            </div>
+        </script>
+        <script type="text/x-template" id="WrapModif">
+            <div class="dashboard-wrapper">
+                <div class="dashboard-ecommerce">
+                    <div class="container-fluid dashboard-content ">
+                        <div class="row">
+                            <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  m-b-30">
+                                        <div class="product-slider">
+                                            <img class="d-block" id="imgModif" width="285" height="313" src="assets/images/eco-slider-img-1.png" alt="First slide">
+                                            <input href="#" type="url" class="btn btn-primary btn-block btn-lg" id="btnImg" placeholder="Entrez une URL" onchange="ajoutimg()">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
+                                        <div class="product-details">
+                                            <div class="border-bottom pb-3 mb-3">
+                                                <h2 class="mb-3"><input type="text" value="Produit #1" id="modifNom"></h2>
+                                                <h3 class="mb-0 text-primary">$<input type="text" value="49.00" id="modifPrix"></h3>
+                                            </div>
+                                            <div class="product-size border-bottom">
+                                                <h4>Fournisseur</h4>
+                                                <input type="text" value="ACME Inc." id="modifFournisseur">
+                                                <div class="product-qty">
+                                                    <h4>Quantité</h4>
+                                                    <div class="quantity">
+                                                        <input type="number" value="1" id="modifQuantite">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-description">
+                                                <h4 class="mb-1">Description</h4>
+                                                <input type="hidden" id="modifId" value="">
+                                                <textarea rows="4" cols="50" id="modifDescription">Praesent et cursus quam. Etiam vulputate est et metus pellentesque iaculis. Suspendisse nec urna augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</textarea>
+                                                <a href="#" onclick="modifierProduit()" class="btn btn-primary btn-block btn-lg">Sauvegarder</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end wrapper  -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+</div>
+</body>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src ="assets/libs/js/script.js"></script>
+</html>
